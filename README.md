@@ -1,6 +1,8 @@
-#This project is a solution to a following problem
+### Project goal
+This project is a solution to a following problem
 
-Exercise
+#### Exercise
+
 You need to design a library that will help determine if rockets can land on a platform.
 Whenever rocket is getting back from the orbit, it needs to check every now and then if it's on
 a correct trajectory to safely land on a platform. Whole landing area (area that contains
