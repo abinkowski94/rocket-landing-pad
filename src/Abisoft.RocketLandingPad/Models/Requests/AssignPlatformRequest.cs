@@ -1,0 +1,12 @@
+﻿using Abisoft.RocketLandingPad.Models.Entities;
+using Abisoft.RocketLandingPad.Models.PositioningComponents;
+
+namespace Abisoft.RocketLandingPad.Models.Requests;
+
+public class AssignPlatformRequest
+{
+    public LandingArea? LandingArea { get; init; }
+
+    public LandingPlatform? Platform { get; init; }
+    public Coordinates? Coordinates { get; init; }
+}
