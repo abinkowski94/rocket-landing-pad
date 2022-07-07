@@ -1,9 +1,9 @@
 ### Project goal
-This project is a solution to a following problem
+This project is a solution to a following problem. Please also read the [assumptions](ASSUMPTIONS.md) that I made during the design process of the solution.
 
 #### Exercise
 
-You need to design a library that will help determine if rockets can land on a platform. Whenever rocket is getting back from the orbit, it needs to check every now and then if it's on a correct trajectory to safely land on a platform. Whole landing area (area that contains landing platform and surroundings) consists of multiple squares that set a perimeter/dimensions that can be described with coordinates (say x and y). Assuming that landing area has size of square 100x100 and landing platform has a size of a square 10x10 and it's top left corner starts at a position 5,5 (please assume that position 0,0 is located at the top left corner of landing area and all positions are relative to it), library should work as follows:
+You need to design a library that will help determine if rockets can land on a platform. Whenever rocket is getting back from the orbit, it needs to check every now and then if it's on a correct trajectory to safely land on a platform. Whole landing area (area that contains landing platform and surroundings) consists of multiple squares that set a perimeter/dimensions that can be described with coordinates (say x and y). Assuming that landing area has size of square 100x100 and landing platform has a size of a square 10x10 and it's  top left corner starts at a position 5,5 (please assume that position 0,0 is located at the top left corner of landing area and all positions are relative to it), library should work as follows:
 
 - if rocket asks for position 5,5 it replies `ok for landing`
 - if rocket asks for position 16,15, it replies `out of platform`

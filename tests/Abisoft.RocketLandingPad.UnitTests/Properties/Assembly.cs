@@ -1,4 +1,4 @@
-﻿namespace Abisoft.RocketLandingPad.UnitTests
+﻿namespace Abisoft.RocketLandingPad.UnitTests.Properties
 {
     public static class AssemblyMarker
     {

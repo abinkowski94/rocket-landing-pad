@@ -37,4 +37,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Abisoft.RocketLandingPad\Abisoft.RocketLandingPad.csproj" />
+  </ItemGroup>
+
 </Project>
