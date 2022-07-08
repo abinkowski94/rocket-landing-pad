@@ -5,55 +5,83 @@ namespace Abisoft.RocketLandingPad.Models.Entities;
 
 public class LandingArea : IEntity
 {
-    private readonly HashSet<string> _landingPlatformIds = new();
     private readonly List<LandingPlatform> _landingPlatforms = new();
+
+    private readonly HashSet<string> _landingPlatformIds = new();
+    private readonly HashSet<Coordinates> _occupiedCoordinates = new();
+
+    internal object SyncRoot { get; } = new();
 
     public string Id { get; }
 
     public string Name { get; }
 
-    public Size Size { get; }
+    public Boundary Boundary { get; }
 
-    public bool HasPlatform => LandingPlatforms.Count > 0;
+    public bool HasPlatforms => LandingPlatforms.Count > 0;
 
-    public bool HasRocket => Rockets.Any();
+    public bool HasRockets => Rockets.Count > 0;
 
     public IReadOnlyList<LandingPlatform> LandingPlatforms => _landingPlatforms;
 
-    public IEnumerable<Rocket> Rockets => LandingPlatforms.SelectMany(lp => lp.Rockets);
+    public IReadOnlyList<Rocket> Rockets => LandingPlatforms.SelectMany(lp => lp.Rockets).ToList();
+
+    public IReadOnlyCollection<Coordinates> OccupiedCoordinates => _occupiedCoordinates;
 
     internal LandingArea(
         string id,
         string name,
-        Size size)
+        Boundary boundaries)
     {
         Id = id;
         Name = name;
-        Size = size;
+        Boundary = boundaries;
     }
 
     internal void AssignPlatform(
-        LandingPlatform landingPlatform,
-        RectangularCoordinates rectangle)
+        LandingPlatform platform,
+        Boundary boundaries)
     {
-        _landingPlatformIds.Add(landingPlatform.Id);
-        _landingPlatforms.Add(landingPlatform);
+        _landingPlatformIds.Add(platform.Id);
+        _landingPlatforms.Add(platform);
 
-        landingPlatform.AssignToArea(this, rectangle);
+        platform.AssignToArea(this, boundaries);
     }
 
     internal void UnassignPlatform(
-        LandingPlatform landingPlatform)
+        LandingPlatform platform)
     {
-        _landingPlatformIds.Remove(landingPlatform.Id);
-        _landingPlatforms.Remove(landingPlatform);
+        _landingPlatformIds.Remove(platform.Id);
+        _landingPlatforms.Remove(platform);
 
-        landingPlatform.UnassignFromArea();
+        platform.UnassignFromArea();
     }
 
-    internal bool Contains(LandingPlatform landingPlatform)
+    internal void LandRocket(
+        Rocket rocket,
+        LandingPlatform platform,
+        Coordinates position,
+        IEnumerable<Coordinates> outline)
     {
-        return _landingPlatformIds.Contains(landingPlatform.Id);
+        foreach (var releasedCoordinate in platform.LandRocket(rocket, position, outline))
+        {
+            _occupiedCoordinates.Add(releasedCoordinate);
+        }
+    }
+
+    internal void StartRocket(Rocket rocket)
+    {
+        var platform = rocket.OccupiedPlatform!.Platform;
+
+        foreach (var releasedCoordinate in platform.StartRocket(rocket))
+        {
+            _occupiedCoordinates.Remove(releasedCoordinate);
+        }
+    }
+
+    internal bool Contains(LandingPlatform platform)
+    {
+        return _landingPlatformIds.Contains(platform.Id);
     }
 
     internal bool Contains(Rocket rocket)

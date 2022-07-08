@@ -49,7 +49,7 @@ internal class LandingService : ILandingService
         throw new NotImplementedException();
     }
 
-    public async Task<Result> LandRocketAsync(LandRocketRequest request, CancellationToken cancellationToken)
+    public Result LandRocket(LandRocketRequest request)
     {
         var validationResult = _landRequestValidator.Validate(request);
         if (validationResult is not null)
@@ -60,7 +60,7 @@ internal class LandingService : ILandingService
         throw new NotImplementedException();
     }
 
-    public async Task<Result> StartRocketAsync(StartRocketRequest request, CancellationToken cancellationToken)
+    public Result StartRocket(StartRocketRequest request)
     {
         var validationResult = _startRequestValidator.Validate(request);
         if (validationResult is not null)

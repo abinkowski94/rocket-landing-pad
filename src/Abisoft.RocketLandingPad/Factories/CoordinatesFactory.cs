@@ -5,7 +5,7 @@ namespace Abisoft.RocketLandingPad.Factories;
 
 public class CoordinatesFactory : ICoordinatesFactory
 {
-    public RectangularCoordinates Create(Coordinates topLeft, Size size)
+    public Boundary CreateBoundary(Coordinates topLeft, Size size)
     {
         /*
          * top left, R: 0, C: 0

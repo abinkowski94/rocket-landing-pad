@@ -9,7 +9,7 @@ public interface ILandingService
 
     Result CanLandRocket(CanLandRocketRequest request);
 
-    Task<Result> LandRocketAsync(LandRocketRequest request, CancellationToken cancellationToken);
+    Result LandRocket(LandRocketRequest request);
 
-    Task<Result> StartRocketAsync(StartRocketRequest request, CancellationToken cancellationToken);
+    Result StartRocket(StartRocketRequest request);
 }

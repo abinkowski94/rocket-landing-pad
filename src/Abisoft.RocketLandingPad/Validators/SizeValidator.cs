@@ -5,27 +5,29 @@ namespace Abisoft.RocketLandingPad.Validators;
 
 internal class SizeValidator : IValidator<Size>
 {
-    public Exception? Validate(Size value)
+    public Exception? Validate(Size? size)
     {
-        if (value is null)
+        if (size is null)
         {
-            return new ArgumentNullException(
-                nameof(value),
-                $"{nameof(Size)} can not be null.");
+            return Consts.Errors.CanNotBeNull(
+                nameof(Size),
+                nameof(size));
         }
 
-        if (value.Height < 1)
+        if (size.Height < 1)
         {
-            return new ArgumentException(
-                $"{nameof(Size)} {nameof(Size.Height)} can not be lower than one.",
-                nameof(value));
+            return Consts.Errors.CanNotBeLowerThanOne(
+                nameof(Size),
+                nameof(Size.Height),
+                nameof(size));
         }
 
-        if (value.Width < 1)
+        if (size.Width < 1)
         {
-            return new ArgumentException(
-                $"{nameof(Size)} {nameof(Size.Width)} can not be lower than one.",
-                nameof(value));
+            return Consts.Errors.CanNotBeLowerThanOne(
+                nameof(Size),
+                nameof(Size.Width),
+                nameof(size));
         }
 
         return null;

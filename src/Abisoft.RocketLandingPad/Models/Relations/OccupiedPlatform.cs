@@ -5,12 +5,12 @@ namespace Abisoft.RocketLandingPad.Models.Relations;
 
 public record OccupiedPlatform(
     LandingPlatform Platform,
-    Coordinates Center,
+    Coordinates Position,
     IEnumerable<Coordinates> Outline)
 {
     public IEnumerable<Coordinates> GetOccupiedCoordinates()
     {
-        yield return Center;
+        yield return Position;
 
         foreach (var outline in Outline)
         {

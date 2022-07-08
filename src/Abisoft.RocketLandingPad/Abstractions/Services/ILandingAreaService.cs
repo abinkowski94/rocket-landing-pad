@@ -9,7 +9,7 @@ public interface ILandingAreaService
 {
     Result<LandingArea> Create(string name, Size size);
 
-    Task<Result> AssignLandingPlatformAsync(AssignPlatformRequest request, CancellationToken cancellationToken);
+    Result AssignLandingPlatform(AssignPlatformRequest request);
 
-    Task<Result> UnassignLandingPlatformAsync(UnassignPlatformRequest request, CancellationToken cancellationToken);
+    Result UnassignLandingPlatform(UnassignPlatformRequest request);
 }

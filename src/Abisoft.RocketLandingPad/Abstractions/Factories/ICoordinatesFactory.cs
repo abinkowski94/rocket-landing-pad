@@ -4,5 +4,5 @@ namespace Abisoft.RocketLandingPad.Abstractions.Factories;
 
 public interface ICoordinatesFactory
 {
-    RectangularCoordinates Create(Coordinates topLeft, Size size);
+    Boundary CreateBoundary(Coordinates topLeft, Size size);
 }

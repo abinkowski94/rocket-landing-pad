@@ -6,9 +6,9 @@ namespace Abisoft.RocketLandingPad.Models.Entities;
 
 public class LandingPlatform : IEntity
 {
-    private readonly HashSet<string> _rocketIds = new();
     private readonly List<Rocket> _rockets = new();
-    private readonly HashSet<Coordinates> _occupiedCoordinates = new();
+
+    private readonly HashSet<string> _rocketIds = new();
 
     public string Id { get; }
 
@@ -16,15 +16,15 @@ public class LandingPlatform : IEntity
 
     public Size Size { get; }
 
-    public bool IsAssigned => AssignedLandingArea is not null;
+    public bool HasRockets => Rockets.Count > 0;
 
-    public bool IsUnassigned => !IsAssigned;
+    public bool IsAssigned => AssignedArea is not null;
 
-    public AssignedLandingArea? AssignedLandingArea { get; private set; }
+    public bool IsUnassigned => AssignedArea is null;
+
+    public AssignedLandingArea? AssignedArea { get; private set; }
 
     public IReadOnlyList<Rocket> Rockets => _rockets;
-
-    public IReadOnlyCollection<Coordinates> OccupiedCoordinates => _occupiedCoordinates;
 
     internal LandingPlatform(
         string id,
@@ -37,41 +37,34 @@ public class LandingPlatform : IEntity
     }
 
     internal void AssignToArea(
-        LandingArea landingArea,
-        RectangularCoordinates rectangle)
+        LandingArea area,
+        Boundary boundary)
     {
-        AssignedLandingArea = new(landingArea, rectangle);
+        AssignedArea = new(area, boundary);
     }
 
     internal void UnassignFromArea()
     {
-        AssignedLandingArea = null;
+        AssignedArea = null;
     }
 
-    internal void LandRocket(
+    internal IEnumerable<Coordinates> LandRocket(
         Rocket rocket,
-        Coordinates center,
+        Coordinates position,
         IEnumerable<Coordinates> outline)
     {
         _rocketIds.Add(rocket.Id);
         _rockets.Add(rocket);
 
-        foreach (var releasedCoordinate in rocket.Land(this, center, outline))
-        {
-            _occupiedCoordinates.Add(releasedCoordinate);
-        }
+        return rocket.Land(this, position, outline);
     }
 
-    internal void StartRocket(
-        Rocket rocket)
+    internal IEnumerable<Coordinates> StartRocket(Rocket rocket)
     {
         _rocketIds.Remove(rocket.Id);
         _rockets.Remove(rocket);
 
-        foreach (var releasedCoordinate in rocket.TakeOff())
-        {
-            _occupiedCoordinates.Remove(releasedCoordinate);
-        }
+        return rocket.TakeOff();
     }
 
     internal bool Contains(Rocket rocket)

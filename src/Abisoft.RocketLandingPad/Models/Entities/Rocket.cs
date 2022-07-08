@@ -24,19 +24,22 @@ public class Rocket : IEntity
 
     internal IEnumerable<Coordinates> Land(
         LandingPlatform platform,
-        Coordinates center,
+        Coordinates position,
         IEnumerable<Coordinates> outline)
     {
-        OccupiedPlatform = new(platform, center, outline);
+        OccupiedPlatform = new(platform, position, outline);
 
         return OccupiedPlatform.GetOccupiedCoordinates();
     }
 
     internal IEnumerable<Coordinates> TakeOff()
     {
-        var result = OccupiedPlatform?.GetOccupiedCoordinates()
-            ?? Enumerable.Empty<Coordinates>();
+        if (OccupiedPlatform is null)
+        {
+            return Enumerable.Empty<Coordinates>();
+        }
 
+        var result = OccupiedPlatform.GetOccupiedCoordinates();
         OccupiedPlatform = null;
 
         return result;

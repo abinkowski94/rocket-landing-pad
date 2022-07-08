@@ -13,47 +13,44 @@ internal class AssignPlatformRequestValidator : IValidator<AssignPlatformRequest
         _coordinatesValidator = coordinatesValidator;
     }
 
-    public Exception? Validate(AssignPlatformRequest value)
+    public Exception? Validate(AssignPlatformRequest? request)
     {
-        if (value is null)
+        if (request is null)
         {
-            return new ArgumentNullException(
-                nameof(value),
-                $"{nameof(AssignPlatformRequest)} can not be null.");
+            return Consts.Errors.CanNotBeNull(
+                nameof(AssignPlatformRequest),
+                nameof(request));
         }
 
-        if (value.LandingArea is null)
+        if (request.Area is null)
         {
-            return new ArgumentException(
-                $"{nameof(AssignPlatformRequest)}.{nameof(AssignPlatformRequest.LandingArea)} can not be null.",
-                nameof(value));
+            return Consts.Errors.CanNotBeNull(
+                nameof(AssignPlatformRequest),
+                nameof(AssignPlatformRequest.Area),
+                nameof(request));
         }
 
-        if (value.Platform is null)
+        if (request.Platform is null)
         {
-            return new ArgumentException(
-                $"{nameof(AssignPlatformRequest)}.{nameof(AssignPlatformRequest.Platform)} can not be null.",
-                nameof(value));
+            return Consts.Errors.CanNotBeNull(
+                nameof(AssignPlatformRequest),
+                nameof(AssignPlatformRequest.Platform),
+                nameof(request));
         }
 
-        if (value.Coordinates is null)
-        {
-            return new ArgumentException(
-                $"{nameof(AssignPlatformRequest)}.{nameof(AssignPlatformRequest.Coordinates)} can not be null.",
-                nameof(value));
-        }
-
-        var coordinatesValidationResult = _coordinatesValidator.Validate(value.Coordinates);
+        var coordinatesValidationResult = _coordinatesValidator.Validate(request.Coordinates);
         if (coordinatesValidationResult is not null)
         {
             return coordinatesValidationResult;
         }
 
-        if (value.LandingArea.Contains(value.Platform))
+        if (request.Area.Contains(request.Platform))
         {
-            return new ArgumentException(
-                $"{nameof(AssignPlatformRequest)}.{nameof(AssignPlatformRequest.LandingArea)} already contains platform: '{value.Platform.Id}'.",
-                nameof(value));
+            return Consts.Errors.AlreadyContainsPlatform(
+                nameof(AssignPlatformRequest),
+                nameof(AssignPlatformRequest.Platform),
+                request.Platform.Id,
+                nameof(request));
         }
 
         return null;

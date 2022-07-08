@@ -5,27 +5,29 @@ namespace Abisoft.RocketLandingPad.Validators;
 
 internal class CoordinatesValidator : IValidator<Coordinates>
 {
-    public Exception? Validate(Coordinates value)
+    public Exception? Validate(Coordinates? coordinates)
     {
-        if (value is null)
+        if (coordinates is null)
         {
-            return new ArgumentNullException(
-                nameof(value),
-                $"{nameof(Coordinates)} can not be null.");
+            return Consts.Errors.CanNotBeNull(
+                nameof(Coordinates),
+                nameof(coordinates));
         }
 
-        if (value.Row < 0)
+        if (coordinates.Row < 0)
         {
-            return new ArgumentException(
-                $"{nameof(Coordinates)} {nameof(Coordinates.Row)} can not be lower than zero.",
-                nameof(value));
+            return Consts.Errors.CanNotBeLowerThanZero(
+                nameof(Coordinates),
+                nameof(Coordinates.Row),
+                nameof(coordinates));
         }
 
-        if (value.Column < 0)
+        if (coordinates.Column < 0)
         {
-            return new ArgumentException(
-                $"{nameof(Coordinates)} {nameof(Coordinates.Column)} can not be lower than zero.",
-                nameof(value));
+            return Consts.Errors.CanNotBeLowerThanZero(
+                nameof(Coordinates),
+                nameof(Coordinates.Column),
+                nameof(coordinates));
         }
 
         return null;
