@@ -11,7 +11,7 @@ public class RocketServicesFacadeTests
     }
 
     [Fact]
-    public void RocketServicesFacade_RocketsLandingScenario()
+    public void RocketServicesFacade_StartingAndLandingRocketsScenario()
     {
         /*
          *    0    1    2    3    4    5    6    7    8    9 
@@ -23,24 +23,23 @@ public class RocketServicesFacadeTests
          *                                                   
          * 3 [ ]  [ ]  [ ]  [ ]  [ ]  [ ]  [ ]  [ ]  [ ]  [ ]
          *                                                   
-         * 4 [ ]  [ ]  [ ]  [ ]  [ ]  [ ]  [ ]  [ ]  [ ]  [ ]
+         * 4 [ ]  [ ]  [ ]  [ ]  [ ]  [ ]  [ ]  [ ]  [A]  [A]
          *                                                   
-         * 5 [ ]  [ ]  [ ]  [ ]  [ ]  [ ]  [ ]  [ ]  [ ]  [ ]
+         * 5 [ ]  [ ]  [ ]  [ ]  [ ]  [ ]  [ ]  [ ]  [A]  [A]
          *                                                   
-         * 6 [ ]  [B]  [B]  [B]  [B]  [ ]  [ ]  [ ]  [ ]  [ ]
+         * 6 [ ]  [B]  [B]  [B]  [B]  [ ]  [ ]  [ ]  [A]  [A]
          *                                                   
-         * 7 [ ]  [B]  [B]  [B]  [B]  [ ]  [ ]  [ ]  [ ]  [ ]
+         * 7 [ ]  [B]  [B]  [B]  [B]  [ ]  [ ]  [ ]  [A]  [A]
          *                                                   
-         * 8 [ ]  [B]  [B]  [B]  [B]  [ ]  [ ]  [ ]  [ ]  [ ]
+         * 8 [ ]  [B]  [B]  [B]  [B]  [ ]  [ ]  [ ]  [A]  [A]
          *                                                   
-         * 9 [ ]  [B]  [B]  [B]  [B]  [ ]  [ ]  [ ]  [ ]  [A]
+         * 9 [ ]  [B]  [B]  [B]  [B]  [ ]  [ ]  [ ]  [A]  [A]
         */
-
         // Arrange
         var area51 = _subject.AreaService.Create("Area 51", new(10, 10));
 
-        var teslaPlatform = _subject.PlatformService.Create("Tesla platform", new(3, 2));
-        var amazonPlatform = _subject.PlatformService.Create("Amazon platform", new(1, 1));
+        var teslaPlatform = _subject.PlatformService.Create("Tesla platform", new(2, 3));
+        var amazonPlatform = _subject.PlatformService.Create("Amazon platform", new(6, 2));
         var usaPlatform = _subject.PlatformService.Create("USA platform", new(4, 4));
 
         var elonsRocket = _subject.RocketService.Create("Elon Musk's rocket");
@@ -58,7 +57,7 @@ public class RocketServicesFacadeTests
         {
             Area = area51,
             Platform = amazonPlatform,
-            Position = new(9, 9),
+            Position = new(4, 8),
         });
 
         var usaPlatformAssigmentResult = _subject.AreaService.AssignLandingPlatform(new()

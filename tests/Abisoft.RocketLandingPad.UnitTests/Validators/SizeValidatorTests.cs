@@ -36,13 +36,13 @@ public class SizeValidatorTests
 
         yield return new object?[]
         {
-            new Size(1, 0),
+            new Size(0, 1),
             Consts.Errors.CanNotBeLowerThanOne(nameof(Size), nameof(Size.Height), paramName),
         };
 
         yield return new object?[]
         {
-            new Size(0, 1),
+            new Size(1, 0),
             Consts.Errors.CanNotBeLowerThanOne(nameof(Size), nameof(Size.Width), paramName),
         };
 

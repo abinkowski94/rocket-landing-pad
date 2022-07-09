@@ -19,8 +19,9 @@ public class AreaFactoryTests : IDisposable
 
     public void Dispose()
     {
-        GC.SuppressFinalize(this);
         _sequenceIdProviderMock.VerifyAll();
+
+        GC.SuppressFinalize(this);
     }
 
     [Fact]
@@ -30,8 +31,8 @@ public class AreaFactoryTests : IDisposable
         const string expectedId = "1";
         const string expectedName = "Tesla rocket";
 
-        var expectedSize = new Size(2, 3);
-        var expectedBoundries  = Boundary.From(topLeft: Coordinates.Zero, expectedSize);
+        var expectedSize = new Size(3, 2);
+        var expectedBoundries = new Boundary(new(0, 0), new(0, 1), new(2, 0), new(2, 1));
         var expectedResult = new LandingArea(expectedId, expectedName, expectedBoundries);
 
         _sequenceIdProviderMock
