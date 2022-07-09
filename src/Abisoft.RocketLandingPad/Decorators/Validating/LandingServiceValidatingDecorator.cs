@@ -30,7 +30,7 @@ internal class LandingServiceValidatingDecorator : ValidatingDecoratorBase, ILan
 
         if (canLandResult.IsSuccess)
         {
-            return _decoratedService.CanLandRocketInfo(request);
+            return Consts.LandingStates.OkForLanding;
         }
         else if (canLandResult.Error is RocketOutOfPlatformException)
         {

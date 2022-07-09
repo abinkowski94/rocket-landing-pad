@@ -2,6 +2,8 @@
 
 public struct Result
 {
+    public static Result Success { get; } = new Result();
+
     public Exception? Error { get; }
 
     public bool IsSuccess => Error is null;

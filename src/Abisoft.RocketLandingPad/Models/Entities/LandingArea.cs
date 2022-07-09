@@ -31,11 +31,11 @@ public class LandingArea : IEntity
     internal LandingArea(
         string id,
         string name,
-        Boundary boundaries)
+        Boundary boundary)
     {
         Id = id;
         Name = name;
-        Boundary = boundaries;
+        Boundary = boundary;
     }
 
     internal void AssignPlatform(
