@@ -9,5 +9,5 @@ public class AssignPlatformRequest : ILandingAreaContainer
     public LandingArea? Area { get; init; }
 
     public LandingPlatform? Platform { get; init; }
-    public Coordinates? Coordinates { get; init; }
+    public Coordinates? Position { get; init; }
 }

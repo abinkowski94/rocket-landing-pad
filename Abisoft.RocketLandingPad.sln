@@ -27,6 +27,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "mockups", "mockups", "{0F56
 		mockups\landing-area-10x10-clear.txt = mockups\landing-area-10x10-clear.txt
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Abisoft.RocketLandingPad.IntegrationTests", "tests\Abisoft.RocketLandingPad.IntegrationTests\Abisoft.RocketLandingPad.IntegrationTests.csproj", "{2E6CF365-5580-4693-951D-F20C70DCA1A5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +43,10 @@ Global
 		{9AC080C4-0BD9-4162-A0B3-A525F6390F79}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9AC080C4-0BD9-4162-A0B3-A525F6390F79}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9AC080C4-0BD9-4162-A0B3-A525F6390F79}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E6CF365-5580-4693-951D-F20C70DCA1A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E6CF365-5580-4693-951D-F20C70DCA1A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E6CF365-5580-4693-951D-F20C70DCA1A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E6CF365-5580-4693-951D-F20C70DCA1A5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -49,6 +55,7 @@ Global
 		{0DDA22C7-94F6-4F18-A3F8-F55793521E38} = {6846FE80-13BB-4D75-9BBD-A849A7D9B065}
 		{9AC080C4-0BD9-4162-A0B3-A525F6390F79} = {4A5D2105-208F-4CE7-A45B-96C86CDD6E40}
 		{0F561A03-EF12-489A-9CCC-8F38493B20CC} = {27DE3DE1-835D-4F5E-BA12-AFF538ACC2BE}
+		{2E6CF365-5580-4693-951D-F20C70DCA1A5} = {4A5D2105-208F-4CE7-A45B-96C86CDD6E40}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6C57ABFB-F16C-44C4-BB64-5B22DF140605}

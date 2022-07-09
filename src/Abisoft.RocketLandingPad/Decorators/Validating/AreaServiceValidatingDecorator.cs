@@ -7,7 +7,7 @@ using Abisoft.RocketLandingPad.Models.Results;
 
 namespace Abisoft.RocketLandingPad.Decorators.Validating;
 
-internal class LandingAreaServiceValidatingDecorator : ILandingAreaService
+internal class AreaServiceValidatingDecorator : ValidatingDecoratorBase, ILandingAreaService
 {
     private readonly IValidator<Size> _sizeValidator;
     private readonly IValidator<AssignPlatformRequest> _assingRequestValidator;
@@ -15,7 +15,7 @@ internal class LandingAreaServiceValidatingDecorator : ILandingAreaService
 
     private readonly ILandingAreaService _decoratedService;
 
-    public LandingAreaServiceValidatingDecorator(
+    public AreaServiceValidatingDecorator(
         IValidator<Size> sizeValidator,
         IValidator<AssignPlatformRequest> assingRequestValidator,
         IValidator<UnassignPlatformRequest> unassignRequestValidator,
@@ -41,23 +41,17 @@ internal class LandingAreaServiceValidatingDecorator : ILandingAreaService
 
     public Result AssignLandingPlatform(AssignPlatformRequest request)
     {
-        var validationResult = _assingRequestValidator.Validate(request);
-        if (validationResult is not null)
-        {
-            return validationResult;
-        }
-
-        return _decoratedService.AssignLandingPlatform(request);
+        return ValidateAndExecuteRequest(
+            request,
+            _assingRequestValidator,
+            _decoratedService.AssignLandingPlatform);
     }
 
     public Result UnassignLandingPlatform(UnassignPlatformRequest request)
     {
-        var validationResult = _unassignRequestValidator.Validate(request);
-        if (validationResult is not null)
-        {
-            return validationResult;
-        }
-
-        return _decoratedService.UnassignLandingPlatform(request);
+        return ValidateAndExecuteRequest(
+            request,
+            _unassignRequestValidator,
+            _decoratedService.UnassignLandingPlatform);
     }
 }

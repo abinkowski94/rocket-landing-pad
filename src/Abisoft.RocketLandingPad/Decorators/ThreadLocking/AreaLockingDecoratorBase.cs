@@ -1,11 +1,10 @@
 ﻿using System.Runtime.CompilerServices;
 using Abisoft.RocketLandingPad.Abstractions.Models;
-using Abisoft.RocketLandingPad.Models.Requests;
 using Abisoft.RocketLandingPad.Models.Results;
 
-namespace Abisoft.RocketLandingPad.Decorators.Locking;
+namespace Abisoft.RocketLandingPad.Decorators.ThreadLocking;
 
-internal class LandingAreaLockingDecoratorBase
+internal abstract class AreaLockingDecoratorBase
 {
     protected static Result ExecuteWithSyncLock<T>(
         T request,
@@ -13,7 +12,7 @@ internal class LandingAreaLockingDecoratorBase
         [CallerArgumentExpression("request")] string? paramName = default)
             where T : ILandingAreaContainer
     {
-        var nullValidation = ValidateAgainstNullArea(request, paramName);
+        var nullValidation = ValidateAgainstNullArea(request, paramName!);
         if (nullValidation.IsError)
         {
             return nullValidation;
@@ -25,20 +24,21 @@ internal class LandingAreaLockingDecoratorBase
         }
     }
 
-    private static Result ValidateAgainstNullArea<T>(T request, string? paramName)
+    private static Result ValidateAgainstNullArea<T>(T request, string paramName)
         where T : ILandingAreaContainer
     {
         if (request is null)
         {
-            return new ArgumentNullException(
-                paramName,
-                $"{nameof(CanLandRocketRequest)} can not be null.");
+            return Consts.Errors.CanNotBeNull(
+                typeof(T).Name,
+                paramName);
         }
 
         if (request.Area is null)
         {
-            return new ArgumentException(
-                $"{nameof(CanLandRocketRequest)}.{nameof(CanLandRocketRequest.Area)} can not be null.",
+            return Consts.Errors.CanNotBeNull(
+                typeof(T).Name,
+                nameof(ILandingAreaContainer.Area),
                 paramName);
         }
 

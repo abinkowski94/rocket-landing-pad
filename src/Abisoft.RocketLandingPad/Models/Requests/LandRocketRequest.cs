@@ -11,4 +11,8 @@ public class LandRocketRequest : ILandingAreaContainer
     public Rocket? Rocket { get; init; }
 
     public Coordinates? Position { get; init; }
+
+    internal LandingPlatform? Platform { get; set; }
+
+    internal IReadOnlyCollection<Coordinates>? Outline { get; set; }
 }

@@ -5,9 +5,9 @@ namespace Abisoft.RocketLandingPad.Abstractions.Services;
 
 public interface ILandingService
 {
-    string CanLandRocketInfo(CanLandRocketRequest request);
+    string CanLandRocketInfo(LandRocketRequest request);
 
-    Result CanLandRocket(CanLandRocketRequest request);
+    Result CanLandRocket(LandRocketRequest request);
 
     Result LandRocket(LandRocketRequest request);
 

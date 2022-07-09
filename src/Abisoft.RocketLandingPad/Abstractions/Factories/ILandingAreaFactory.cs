@@ -3,7 +3,7 @@ using Abisoft.RocketLandingPad.Models.PositioningComponents;
 
 namespace Abisoft.RocketLandingPad.Abstractions.Factories;
 
-internal interface ILandingAreaFactory
+internal interface IAreaFactory
 {
     LandingArea Create(string name, Size size);
 }

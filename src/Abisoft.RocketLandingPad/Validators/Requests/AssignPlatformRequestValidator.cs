@@ -38,7 +38,15 @@ internal class AssignPlatformRequestValidator : IValidator<AssignPlatformRequest
                 nameof(request));
         }
 
-        var coordinatesValidationResult = _coordinatesValidator.Validate(request.Coordinates);
+        if (request.Position is null)
+        {
+            return Consts.Errors.CanNotBeNull(
+                nameof(AssignPlatformRequest),
+                nameof(AssignPlatformRequest.Position),
+                nameof(request));
+        }
+
+        var coordinatesValidationResult = _coordinatesValidator.Validate(request.Position);
         if (coordinatesValidationResult is not null)
         {
             return coordinatesValidationResult;
@@ -48,9 +56,33 @@ internal class AssignPlatformRequestValidator : IValidator<AssignPlatformRequest
         {
             return Consts.Errors.AlreadyContainsPlatform(
                 nameof(AssignPlatformRequest),
-                nameof(AssignPlatformRequest.Platform),
+                nameof(AssignPlatformRequest.Area),
                 request.Platform.Id,
                 nameof(request));
+        }
+
+        if (!request.Area.Boundary.Contains(request.Position, request.Platform.Size))
+        {
+            return Consts.Errors.DoesNotFitInsideArea(
+                nameof(AssignPlatformRequest),
+                nameof(AssignPlatformRequest.Platform),
+                request.Platform.Id,
+                request.Area.Id,
+                nameof(request));
+        }
+
+        foreach (var existingPlatform in request.Area.Platforms)
+        {
+            if (existingPlatform.AssignedArea!.Boundary
+                .Overlaps(request.Position, request.Platform.Size))
+            {
+                return Consts.Errors.OverlapsWithExistingPlatform(
+                    nameof(AssignPlatformRequest),
+                    nameof(AssignPlatformRequest.Platform),
+                    request.Platform.Id,
+                    existingPlatform.Id,
+                    nameof(request));
+            }
         }
 
         return null;

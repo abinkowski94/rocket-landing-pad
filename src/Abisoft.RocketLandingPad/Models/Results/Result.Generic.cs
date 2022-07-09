@@ -22,6 +22,11 @@ public struct Result<T>
         Error = error;
     }
 
+    public static implicit operator T?(Result<T> result)
+    {
+        return result.Value;
+    }
+
     public static implicit operator Result<T>(T value)
     {
         return new Result<T>(value);

@@ -4,13 +4,13 @@ using Abisoft.RocketLandingPad.Models.PositioningComponents;
 using Abisoft.RocketLandingPad.Models.Requests;
 using Abisoft.RocketLandingPad.Models.Results;
 
-namespace Abisoft.RocketLandingPad.Decorators.Locking;
+namespace Abisoft.RocketLandingPad.Decorators.ThreadLocking;
 
-internal class LandingAreaServiceLockingDecorator : LandingAreaLockingDecoratorBase, ILandingAreaService
+internal class AreaServiceLockingDecorator : AreaLockingDecoratorBase, ILandingAreaService
 {
     private readonly ILandingAreaService _decoratedService;
 
-    public LandingAreaServiceLockingDecorator(ILandingAreaService decoratedService)
+    public AreaServiceLockingDecorator(ILandingAreaService decoratedService)
     {
         _decoratedService = decoratedService;
     }

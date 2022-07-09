@@ -2,9 +2,9 @@
 using Abisoft.RocketLandingPad.Models.Requests;
 using Abisoft.RocketLandingPad.Models.Results;
 
-namespace Abisoft.RocketLandingPad.Decorators.Locking;
+namespace Abisoft.RocketLandingPad.Decorators.ThreadLocking;
 
-internal class LandingServiceLockingDecorator : LandingAreaLockingDecoratorBase, ILandingService
+internal class LandingServiceLockingDecorator : AreaLockingDecoratorBase, ILandingService
 {
     private readonly ILandingService _decoratedService;
 
@@ -13,12 +13,12 @@ internal class LandingServiceLockingDecorator : LandingAreaLockingDecoratorBase,
         _decoratedService = decoratedService;
     }
 
-    public string CanLandRocketInfo(CanLandRocketRequest request)
+    public string CanLandRocketInfo(LandRocketRequest request)
     {
         return _decoratedService.CanLandRocketInfo(request);
     }
 
-    public Result CanLandRocket(CanLandRocketRequest request)
+    public Result CanLandRocket(LandRocketRequest request)
     {
         return ExecuteWithSyncLock(request, _decoratedService.CanLandRocket);
     }

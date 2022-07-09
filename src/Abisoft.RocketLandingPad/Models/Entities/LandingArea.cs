@@ -5,7 +5,7 @@ namespace Abisoft.RocketLandingPad.Models.Entities;
 
 public class LandingArea : IEntity
 {
-    private readonly List<LandingPlatform> _landingPlatforms = new();
+    private readonly List<LandingPlatform> _platforms = new();
 
     private readonly HashSet<string> _landingPlatformIds = new();
     private readonly HashSet<Coordinates> _occupiedCoordinates = new();
@@ -18,13 +18,13 @@ public class LandingArea : IEntity
 
     public Boundary Boundary { get; }
 
-    public bool HasPlatforms => LandingPlatforms.Count > 0;
+    public bool HasPlatforms => Platforms.Count > 0;
 
     public bool HasRockets => Rockets.Count > 0;
 
-    public IReadOnlyList<LandingPlatform> LandingPlatforms => _landingPlatforms;
+    public IReadOnlyList<LandingPlatform> Platforms => _platforms;
 
-    public IReadOnlyList<Rocket> Rockets => LandingPlatforms.SelectMany(lp => lp.Rockets).ToList();
+    public IReadOnlyList<Rocket> Rockets => Platforms.SelectMany(lp => lp.Rockets).ToList();
 
     public IReadOnlyCollection<Coordinates> OccupiedCoordinates => _occupiedCoordinates;
 
@@ -43,7 +43,7 @@ public class LandingArea : IEntity
         Boundary boundaries)
     {
         _landingPlatformIds.Add(platform.Id);
-        _landingPlatforms.Add(platform);
+        _platforms.Add(platform);
 
         platform.AssignToArea(this, boundaries);
     }
@@ -52,7 +52,7 @@ public class LandingArea : IEntity
         LandingPlatform platform)
     {
         _landingPlatformIds.Remove(platform.Id);
-        _landingPlatforms.Remove(platform);
+        _platforms.Remove(platform);
 
         platform.UnassignFromArea();
     }
@@ -86,6 +86,6 @@ public class LandingArea : IEntity
 
     internal bool Contains(Rocket rocket)
     {
-        return _landingPlatforms.Any(lp => lp.Contains(rocket));
+        return _platforms.Any(lp => lp.Contains(rocket));
     }
 }

@@ -4,5 +4,5 @@ namespace Abisoft.RocketLandingPad.Abstractions.Factories;
 
 internal interface IOutlineFactory
 {
-    IEnumerable<Coordinates> Create(Coordinates center);
+    IReadOnlyCollection<Coordinates> Create(Boundary boundary, Coordinates postion);
 }

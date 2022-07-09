@@ -5,11 +5,11 @@ using Abisoft.RocketLandingPad.Models.PositioningComponents;
 
 namespace Abisoft.RocketLandingPad.Factories;
 
-internal class LandingPlatformFactory : ILandingPlatformFactory
+internal class PlatformFactory : IPlatformFactory
 {
     private readonly ISequenceIdProvider _sequenceIdProvider;
 
-    public LandingPlatformFactory(ISequenceIdProvider sequenceIdProvider)
+    public PlatformFactory(ISequenceIdProvider sequenceIdProvider)
     {
         _sequenceIdProvider = sequenceIdProvider;
     }

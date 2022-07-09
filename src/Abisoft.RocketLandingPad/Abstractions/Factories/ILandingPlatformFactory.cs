@@ -3,7 +3,7 @@ using Abisoft.RocketLandingPad.Models.PositioningComponents;
 
 namespace Abisoft.RocketLandingPad.Abstractions.Factories;
 
-internal interface ILandingPlatformFactory
+internal interface IPlatformFactory
 {
     LandingPlatform Create(string name, Size size);
 }

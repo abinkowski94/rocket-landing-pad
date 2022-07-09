@@ -5,23 +5,20 @@ using Abisoft.RocketLandingPad.Models.PositioningComponents;
 
 namespace Abisoft.RocketLandingPad.Factories;
 
-internal class LandingAreaFactory : ILandingAreaFactory
+internal class AreaFactory : IAreaFactory
 {
     private readonly ISequenceIdProvider _sequenceIdProvider;
-    private readonly ICoordinatesFactory _coordinatesFactory;
 
-    public LandingAreaFactory(
-        ISequenceIdProvider sequenceIdProvider,
-        ICoordinatesFactory coordinatesFactory)
+    public AreaFactory(
+        ISequenceIdProvider sequenceIdProvider)
     {
         _sequenceIdProvider = sequenceIdProvider;
-        _coordinatesFactory = coordinatesFactory;
     }
 
     public LandingArea Create(string name, Size size)
     {
         var id = _sequenceIdProvider.GetNextId();
-        var boundries = _coordinatesFactory.CreateBoundary(topLeft: Coordinates.Zero, size);
+        var boundries = Boundary.From(topLeft: Coordinates.Zero, size);
 
         return new(id, name, boundries);
     }

@@ -7,16 +7,12 @@ using Abisoft.RocketLandingPad.Models.Results;
 
 namespace Abisoft.RocketLandingPad.Services;
 
-internal class LandingAreaService : ILandingAreaService
+internal class AreaService : ILandingAreaService
 {
-    private readonly ICoordinatesFactory _coordinatesFactory;
-    private readonly ILandingAreaFactory _landingAreaFactory;
+    private readonly IAreaFactory _landingAreaFactory;
 
-    public LandingAreaService(
-        ICoordinatesFactory coordinatesFactory,
-        ILandingAreaFactory landingAreaFactory)
+    public AreaService(IAreaFactory landingAreaFactory)
     {
-        _coordinatesFactory = coordinatesFactory;
         _landingAreaFactory = landingAreaFactory;
     }
 
@@ -27,8 +23,7 @@ internal class LandingAreaService : ILandingAreaService
 
     public Result AssignLandingPlatform(AssignPlatformRequest request)
     {
-        var rectangularCoordinates = _coordinatesFactory
-            .CreateBoundary(request.Coordinates!, request.Platform!.Size);
+        var rectangularCoordinates = Boundary.From(request.Position!, request.Platform!.Size);
 
         request.Area!.AssignPlatform(request.Platform, rectangularCoordinates);
 

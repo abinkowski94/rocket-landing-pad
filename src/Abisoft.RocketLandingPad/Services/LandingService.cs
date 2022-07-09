@@ -1,6 +1,4 @@
-﻿using Abisoft.RocketLandingPad.Abstractions.Factories;
-using Abisoft.RocketLandingPad.Abstractions.Services;
-using Abisoft.RocketLandingPad.Abstractions.Validators;
+﻿using Abisoft.RocketLandingPad.Abstractions.Services;
 using Abisoft.RocketLandingPad.Models.Requests;
 using Abisoft.RocketLandingPad.Models.Results;
 
@@ -8,66 +6,31 @@ namespace Abisoft.RocketLandingPad.Services;
 
 internal class LandingService : ILandingService
 {
-    private readonly IValidator<CanLandRocketRequest> _canLandRequestValidator;
-    private readonly IValidator<LandRocketRequest> _landRequestValidator;
-    private readonly IValidator<StartRocketRequest> _startRequestValidator;
-
-    private readonly IOutlineFactory _outlineFactory;
-
-    public LandingService(
-        IValidator<CanLandRocketRequest> canLandRequestValidator,
-        IValidator<LandRocketRequest> landRequestValidator,
-        IValidator<StartRocketRequest> startRequestValidator,
-        IOutlineFactory outlineFactory)
+    public string CanLandRocketInfo(LandRocketRequest request)
     {
-        _canLandRequestValidator = canLandRequestValidator;
-        _landRequestValidator = landRequestValidator;
-        _startRequestValidator = startRequestValidator;
-
-        _outlineFactory = outlineFactory;
+        return Consts.LandingStates.OkForLanding;
     }
 
-    public string CanLandRocketInfo(CanLandRocketRequest request)
+    public Result CanLandRocket(LandRocketRequest request)
     {
-        var canLandResult = CanLandRocket(request);
-        if (canLandResult.IsSuccess)
-        {
-            return "ok for landing";
-        }
-
-        return canLandResult.Error!.Message;
-    }
-
-    public Result CanLandRocket(CanLandRocketRequest request)
-    {
-        var validationResult = _canLandRequestValidator.Validate(request);
-        if (validationResult is not null)
-        {
-            return validationResult;
-        }
-
-        throw new NotImplementedException();
+        return new Result();
     }
 
     public Result LandRocket(LandRocketRequest request)
     {
-        var validationResult = _landRequestValidator.Validate(request);
-        if (validationResult is not null)
-        {
-            return validationResult;
-        }
+        request.Area!.LandRocket(
+            request.Rocket!,
+            request.Platform!,
+            request.Position!,
+            request.Outline!);
 
-        throw new NotImplementedException();
+        return new Result();
     }
 
     public Result StartRocket(StartRocketRequest request)
     {
-        var validationResult = _startRequestValidator.Validate(request);
-        if (validationResult is not null)
-        {
-            return validationResult;
-        }
+        request.Area!.StartRocket(request.Rocket!);
 
-        throw new NotImplementedException();
+        return new Result();
     }
 }
