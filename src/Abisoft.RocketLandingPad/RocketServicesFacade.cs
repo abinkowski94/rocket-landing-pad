@@ -11,9 +11,9 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Abisoft.RocketLandingPad;
 
-public class RocketServicesFacade
+public class RocketServicesFacade : IDisposable, IAsyncDisposable
 {
-    private readonly IServiceProvider _serviceProvider;
+    private readonly ServiceProvider _serviceProvider;
 
     public ILandingAreaService AreaService
         => _serviceProvider.GetRequiredService<ILandingAreaService>();
@@ -38,6 +38,20 @@ public class RocketServicesFacade
         AddServiceDecorators(serviceCollection);
 
         _serviceProvider = serviceCollection.BuildServiceProvider();
+    }
+
+    public void Dispose()
+    {
+        _serviceProvider.Dispose();
+
+        GC.SuppressFinalize(this);
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        await _serviceProvider.DisposeAsync();
+
+        GC.SuppressFinalize(this);
     }
 
     private static void AddProviders(ServiceCollection serviceCollection)
