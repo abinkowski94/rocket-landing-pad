@@ -63,6 +63,26 @@ public class LandingServiceValidatingDecoratorTests : IDisposable
     }
 
     [Fact]
+    public void CanLandRocketInfo_WhenHandledError_ThenThrowsException()
+    {
+        // Arrange
+        var request = new LandRocketRequest();
+        var error = new Exception("Some error");
+
+        _landRocketRequestValidatorMock
+            .Setup(s => s.Validate(request))
+            .Returns(error);
+
+        // Act
+        var result = () => _subject.CanLandRocketInfo(request);
+
+        // Assert
+        result.Should()
+            .ThrowExactly<Exception>()
+            .WithMessage(error.Message);
+    }
+
+    [Fact]
     public void CanLandRocket_WhenData_ThenValidatesAndCallsDecoratedService()
     {
         // Arrange

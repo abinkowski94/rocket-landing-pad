@@ -66,6 +66,25 @@ public class AreaServiceValidatingDecoratorTests : IDisposable
     }
 
     [Fact]
+    public void Create_WhenValidationReturnsError_ThenReturnsError()
+    {
+        // Arrange
+        const string name = "Area 51";
+        var expectedSize = new Size(1, 1);
+        Result<LandingArea> expectedResult = new Exception("some error");
+
+        _sizeValidatorMock
+            .Setup(s => s.Validate(expectedSize))
+            .Returns(expectedResult.Error);
+
+        // Act
+        var result = _subject.Create(name, expectedSize);
+
+        // Assert
+        result.Should().BeEquivalentTo(expectedResult);
+    }
+
+    [Fact]
     public void AssignLandingPlatform_WhenData_ThenValidatesAndCallsDecoratedService()
     {
         // Arrange
