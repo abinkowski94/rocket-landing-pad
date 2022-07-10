@@ -98,7 +98,7 @@ public class LandingServiceLockingDecoratorTests : IDisposable
     public async void StartRocket_WhenMultipleThreadsThen_ThenCallsDecoratedServiceAndDoNotOverlaps()
     {
         // Arrange
-        const int expectedEnumerations = 1_000_000;
+        const int expectedEnumerations = 10_000;
 
         var processed = 0;
         var request = new StartRocketRequest

@@ -2,13 +2,13 @@
 
 namespace Abisoft.RocketLandingPad;
 
-internal static class Consts
+public static class Consts
 {
-    internal static class LandingStates
+    public static class LandingStates
     {
-        internal const string OkForLanding = "ok for landing";
-        internal const string OutOfPlatform = "out of platform";
-        internal const string Clash = "clash";
+        public const string OkForLanding = "ok for landing";
+        public const string OutOfPlatform = "out of platform";
+        public const string Clash = "clash";
     }
 
     internal static class Errors

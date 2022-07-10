@@ -89,6 +89,8 @@ public class LandingServiceTests
         platform.HasRockets.Should().BeTrue();
         platform.Contains(rocket).Should().BeTrue();
 
+        rocket.Id.Should().Be("1");
+        rocket.Name.Should().Be("Tesla rocket");
         rocket.IsGrounded.Should().BeTrue();
         rocket.IsAirborne.Should().BeFalse();
         rocket.OccupiedPlatform.Should().NotBeNull();

@@ -2,7 +2,7 @@
 
 public struct Result
 {
-    public static Result Success { get; } = new Result();
+    public static Result Success => new();
 
     public Exception? Error { get; }
 

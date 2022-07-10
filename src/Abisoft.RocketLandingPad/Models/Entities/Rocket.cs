@@ -34,12 +34,7 @@ public class Rocket : IEntity
 
     internal IEnumerable<Coordinates> TakeOff()
     {
-        if (OccupiedPlatform is null)
-        {
-            return Enumerable.Empty<Coordinates>();
-        }
-
-        var result = OccupiedPlatform.GetOccupiedCoordinates();
+        var result = OccupiedPlatform!.GetOccupiedCoordinates();
         OccupiedPlatform = null;
 
         return result;

@@ -3,7 +3,6 @@ using Abisoft.RocketLandingPad.Abstractions.Validators;
 using Abisoft.RocketLandingPad.Extensions;
 
 [assembly: InternalsVisibleTo("Abisoft.RocketLandingPad.UnitTests")]
-[assembly: InternalsVisibleTo("Abisoft.RocketLandingPad.IntegrationTests")]
 [assembly: InternalsVisibleTo("DynamicProxyGenAssembly2")]
 
 namespace Abisoft.RocketLandingPad.Properties;

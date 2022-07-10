@@ -68,7 +68,9 @@ internal class LandRocketRequestValidator : IValidator<LandRocketRequest>
                 nameof(request));
         }
 
-        request.Outline = _outlineFactory.Create(request.Platform.AssignedArea!.Boundary, request.Position);
+        request.Outline = _outlineFactory.Create(
+            request.Area.Boundary,
+            request.Position);
 
         if (request.Area.OccupiedCoordinates.Contains(request.Position))
         {

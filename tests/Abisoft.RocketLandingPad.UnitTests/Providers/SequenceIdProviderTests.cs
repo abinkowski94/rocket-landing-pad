@@ -16,11 +16,13 @@ public class SequenceIdProviderTests
     public async Task GetNextId_WhenThereAreMultipleThreads_ThenSequenceIsKept()
     {
         // Arrange
-        var expectedResult = Enumerable.Range(1, 1_000_000)
+        const int tasksCount = 10_000;
+
+        var expectedResult = Enumerable.Range(1, tasksCount)
             .Select(e => e.ToString())
             .ToList();
 
-        var tasks = Enumerable.Range(1, 1_000_000)
+        var tasks = Enumerable.Range(1, tasksCount)
             .Select(_ => Task.Run(() => _subject.GetNextId()))
             .ToList();
 

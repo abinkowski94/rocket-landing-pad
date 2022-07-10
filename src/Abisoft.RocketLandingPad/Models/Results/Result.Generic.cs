@@ -6,9 +6,9 @@ public struct Result<T>
 
     public Exception? Error { get; }
 
-    public bool IsSuccess => Value is not null;
-
     public bool IsError => Error is not null;
+
+    public bool IsSuccess => !IsError;
 
     public Result(T value)
     {
@@ -35,5 +35,15 @@ public struct Result<T>
     public static implicit operator Result<T>(Exception error)
     {
         return new Result<T>(error);
+    }
+
+    public static implicit operator Result(Result<T> value)
+    {
+        if (value.IsError)
+        {
+            return value.Error!;
+        }
+
+        return Result.Success;
     }
 }
