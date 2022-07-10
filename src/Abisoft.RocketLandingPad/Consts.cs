@@ -52,9 +52,6 @@ internal static class Consts
         internal static ArgumentException OverlapsWithExistingPlatform(string typeName, string propertyName, string newPlatformId, string existingPlatformId, string paramName)
             => new(Messages.OverlapsWithExistingPlatform(typeName, propertyName, newPlatformId, existingPlatformId), paramName);
 
-        internal static ArgumentException NotPlacedInsidePlatform(string typeName, string propertyName, string rocketId, string areaId, string paramName)
-            => new(Messages.NotPlacedInsidePlatform(typeName, propertyName, rocketId, areaId), paramName);
-
         internal static ArgumentException DoesNotContainRocket(string typeName, string propertyName, string areaId, string rocketId, string paramName)
             => new(Messages.DoesNotContainRocket(typeName, propertyName, areaId, rocketId), paramName);
 
@@ -92,9 +89,6 @@ internal static class Consts
 
             internal static string OverlapsWithExistingPlatform(string typeName, string propertyName, string newPlatformId, string existingPlatformId)
                 => $"{typeName}.{propertyName}: '{newPlatformId}' overlpas with existing platform: '{existingPlatformId}'.";
-
-            internal static string NotPlacedInsidePlatform(string typeName, string propertyName, string rocketId, string areaId)
-                => $"{typeName}.{propertyName}: '{rocketId}' is not placed inside area: '{areaId}'.";
 
             internal static string DoesNotContainRocket(string typeName, string propertyName, string areaId, string rocketId)
                 => $"{typeName}.{propertyName}: '{areaId}' does not contain rocket: '{rocketId}'.";

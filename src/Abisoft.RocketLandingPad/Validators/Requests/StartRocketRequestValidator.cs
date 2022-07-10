@@ -39,16 +39,6 @@ internal class StartRocketRequestValidator : IValidator<StartRocketRequest>
                 nameof(request));
         }
 
-        if (request.Rocket.OccupiedPlatform?.Platform.AssignedArea?.Area != request.Area)
-        {
-            return Consts.Errors.NotPlacedInsidePlatform(
-                nameof(StartRocketRequest),
-                nameof(StartRocketRequest.Rocket),
-                request.Rocket.Id,
-                request.Area.Id,
-                nameof(request));
-        }
-
         if (!request.Area.Contains(request.Rocket))
         {
             return Consts.Errors.DoesNotContainRocket(
